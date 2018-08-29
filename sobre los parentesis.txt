@@ -1,0 +1,3 @@
+myUncurry (myCurry myMax) (4,6) != myUncurry myCurry myMax (4,6)
+
+(((myUncurry myCurry) myMax) (4,6)) == myUncurry myCurry myMax (4,6)

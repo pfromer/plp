@@ -28,12 +28,16 @@ multiplicacion a b = a * b
 --myCurry myUncurry max 6 4
 --myCurry (max(6,4))
 
+--ESTO FUNCIONA
 --componer myUncurry myCurry myMax (4,6)
 --myUncurry (myCurry myMax) (4,6)
 --(myCurry myMax) 4 6
 --myMax(4,6)
 
 
+--ESTO NO FUNCIONA
+--myUncurry myCurry myMax (4,6)
+--primero trata de resolver myUncurry, pero la ecuacion no la puede resolver porque myMax no es una tupla
 
 
 
