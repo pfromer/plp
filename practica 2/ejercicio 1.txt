@@ -1,0 +1,68 @@
+Gram´aticas a tener en cuenta:
+Terminos
+
+M ::= x | λx: σ. M | M M | true | false | if M then M else M | 0 | succ(M) | pred(M) | isZero(M)
+
+Donde la letra x representa un nombre de variable arbitrario. Tales nombres se toman de un conjunto
+infinito dado X = {w, w1, w2, . . . , x, x1, x2, . . . , y, y1, y2, . . . , z, z1, z2, . . . }
+
+Tipos
+σ ::= Bool | Nat | σ → σ
+
+
+Ejercicio 1
+
+Determinar qué expresiones son sintácticamente validas (es decir, pueden ser generadas con las gram´aticas
+presentadas) y determinar a qu´e categor´ıa pertenecen (expresiones de t´erminos o expresiones de tipos):
+
+1. x
+valido
+
+2. x x
+valido
+
+3. M
+valido
+
+4. M M
+valido
+
+5. true false
+valido
+
+6. true succ(false true)
+valido
+
+7. λx.isZero(x)
+invalido
+
+
+8. λx: σ. succ(x)
+Valido
+
+9. λx: Bool. succ(x)
+Valido
+
+10. λx: if true then Bool else Nat. x
+Invalido
+
+11. σ
+valido
+
+12. Bool
+valido
+
+13. Bool → Bool
+valido
+
+14. Bool → Bool → Nat
+valido
+
+15. (Bool → Bool) → Nat
+invalido
+
+16. succ true
+invalido
+
+17. λx: Bool. if 0 then true else 0 succ(true)
+invalido

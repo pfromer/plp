@@ -1,0 +1,48 @@
+foldr (\mi rec-> \(xi:xs)-> (xi:mi):rec xs) (const []) m
+
+
+
+foldr (\mi rec-> \(xi:xs)-> (xi:mi):rec xs) (const []) [[1,2,3],[4,5,6],[7,8,9]]
+
+
+foldr f (const []) [[1,2,3],[4,5,6],[7,8,9]]
+
+f [1,2,3] (foldr f (const [])[4,5,6],[7,8,9])
+
+f [1,2,3] (f [4,5,6] (foldr f (const [])[7,8,9]))
+
+f [1,2,3] (f [4,5,6] (f [7,8,9] (foldr f (const [])[])))
+
+
+f [1,2,3] (f [4,5,6] (f [7,8,9] (const [])))  --> esto se transformara en una funcion del tipo [a] -> [[a]]
+
+---------------------
+--foldr ::(a -> b -> b) -> b -> [a] -> b 
+--foldr f z [] = z 
+--foldr f z (x:xs) = f x (foldr f z xs)
+----------------------
+
+--observar que en este caso el tipo b (o sea rec)es una funcion que toma una lista y devuelve una matriz, donde parte de la matriz esta harcodeada en la propia funcion)
+
+(\mi rec-> \(xi:xs)-> (xi:mi):rec xs) [1,2,3] ((\mi rec-> \(xi:xs)-> (xi:mi):rec xs) [4,5,6] ((\mi rec-> \(xi:xs)-> (xi:mi):rec xs) [7,8,9] (const [])))
+
+
+--esta es la funcion final del foldr anterior, que tomara una lista [a,b,c] y devolvera una matriz [[a,1,2,3],[b,4,5,6],[c,7,8,9]]
+(\(xi:xs)-> (xi:[1,2,3]):((\mi rec-> \(xi:xs)-> (xi:mi):rec xs) [4,5,6] ((\mi rec-> \(xi:xs)-> (xi:mi):rec xs) [7,8,9] (const []))) xs)
+
+(\(xi:xs)-> (xi:[1,2,3]):((\(xi:xs)-> (xi:[4,5,6]):((\mi rec-> \(xi:xs)-> (xi:mi):rec xs) [7,8,9] (const []))) xs) xs) 
+
+(\(xi:xs)-> (xi:[1,2,3]):((\(xi:xs)-> (xi:[4,5,6]):((\(xi:xs)-> (xi:[7,8,9]):const [] xs) xs)) xs)) 
+--
+
+(\(xi:xs)-> (xi:[1,2,3]):((\(xi:xs)-> (xi:[4,5,6]):((\(xi:xs)-> (xi:[7,8,9]):const [] xs) xs)) xs)) [a,b,c]
+
+((a:[1,2,3]):(\(xi:xs)-> (xi:[4,5,6]):((\(xi:xs)-> (xi:[7,8,9]):const [] xs) xs) [b,c])) 
+
+((a:[1,2,3]):((b:[4,5,6]):((\(xi:xs)-> (xi:[7,8,9]):const [] xs) [c]))) 
+
+((a:[1,2,3]):((b:[4,5,6]):(((c:[7,8,9]):const [] [])))) 
+
+((a:[1,2,3]):((b:[4,5,6]):(((c:[7,8,9]):[]))))
+
+(a:[1,2,3]):(b:[4,5,6]):(c:[7,8,9]):[] 

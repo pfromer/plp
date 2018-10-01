@@ -1,0 +1,16 @@
+Terminos
+M ::= x | λx: σ. M | M M | true | false | if M then M else M | 0 | succ(M) | pred(M) | isZero(M)
+
+
+
+Tipos
+σ ::= Bool | Nat | σ → σ
+
+Ejercicio 3 F
+
+1. Marcar las ocurrencias del teermino x como subtermino en λx: Nat. succ((λx: Nat. x) x).
+Solamente las dos últimas apariciones.
+2. ¿Ocurre x1 como subt´ermino en λx1 : Nat. succ(x2)?
+creo que no
+3. ¿Ocurre x (y z) como subt´ermino en u x (y z)?
+creo que si

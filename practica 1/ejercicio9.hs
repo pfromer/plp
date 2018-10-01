@@ -1,3 +1,4 @@
+import Data.List
 type DivideConquer a b = (a -> Bool) -> (a -> b) -> (a -> [a]) -> ([b] -> b) -> a -> b
 
 dc :: DivideConquer a b
@@ -23,7 +24,13 @@ myFilter :: (a ->Bool)->[a]->[a]
 myFilter p [] = []
 myFilter p l = dc (\x -> length x == 1) (\x -> if p (head x) then x else []) partirEnDos concat l
 
- 
+
+mostCommon :: Ord a => [a] -> a
+mostCommon = snd . maximum . map (\xs -> (length xs, head xs)) . group . sort 
+
+cantidadAparicionesDelMasComun :: Ord a => [a] -> Int
+cantidadAparicionesDelMasComun = fst . maximum . map (\xs -> (length xs, head xs)) . group . sort
+
 
 {-| La forma en que funciona es, dado un input x, verifica si es o no un caso base utilizando la funci´on trivial.
 En caso de serlo, utilizaremos solve para dar el resultado final. En caso de no ser un caso base, partimos
