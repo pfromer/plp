@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		
+			function complejo(r,i){
+				this.r = r;
+				this.i = i;
+	
+				this.sumar = function(c){
+					return new complejo(this.r + c.r, this.i + c.i);
+				}				
+			}	
+			
+			
+			c1i = new complejo(1,1);
+			
+			
+			//tener en cuenta que el prototypo de c es el mismo que el de c1i. los dos fueron generados a traves de "new complejo"
+			let c = c1i.sumar(c1i)
+			
+			//por el comentario de arriba esto va a hacer que tanto c1i como c puedan responder al mensaje restar. 
+			//ya que va a estar implemtnado en el prototipo de ambos.
+			c.__proto__.restar = function(c){
+				return new complejo(this.r - c.r, this.i - c.i);
+			}
+			
+			//c1i.restar({r:3, i:5}) no tira error
+			//c.restar({r:3, i:5}) tampoco
+			
+		   debugger
+		</script>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		
+ /*Se desea definir a los n´umeros naturales como objetos. Los mismos deben proveer las operaciones esCero
+and succ que permiten respectivamente testear si el receptor del mensaje es 0 o no, y obtener al sucesor
+del receptor. Adem´as, todos los n´umeros distintos de 0 deben proveer la operaci´on pred. Ninguna de las
+operaciones debe modificar al objeto receptor del mensaje. Su soluci´on no debe utilizar los tipos number ni
+Number.*/
+
+	    var zero = {
+			esCero : true,
+			succ : function(){			
+				var result = Object.create(this);
+				result.esCero = false;
+				result.pred = function(){
+					return this.__proto__
+				}
+				return result;	
+			} 
+		}
+		
+		zero.toNumber = function(){
+			if(this.esCero)
+				return 0;
+			else
+				return 1 + this.pred().toNumber();		
+		}
+		
+		testObject = function(a, b, okMessage, errorMessage){
+			return { a: eval(a), b: eval(b), okMessage: a + " == " + b, errorMessage: a + " != " + b}		
+		}		
+		
+		
+		var tests = [
+			testObject("0", "zero.toNumber()"),
+			testObject("1", "zero.succ().toNumber()"),
+			testObject("2", "zero.succ().succ().toNumber()"),
+			testObject("1", "zero.succ().succ().pred().toNumber()"),
+			testObject("true", "zero.esCero"),
+			testObject("false", "zero.succ().esCero")
+		]
+		
+		testEquality = function(t){
+			if(t.a == t.b){
+				console.log(t.okMessage);
+				return true;
+			}
+			else{
+				console.log(t.errorMessage);
+				return false;
+			}
+		}
+		
+		for (var i = 0; i < tests.length; i++) {
+			testEquality(tests[i])
+		}
+
+		
+		
+		
+		
+		</script>
+	<body>
+	</body>
+</html>

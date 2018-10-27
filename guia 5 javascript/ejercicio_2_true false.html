@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		
+			t = { 
+				ite : function(a,b){return a}, 
+				s: "verdadero"
+				};
+			
+			f = { 
+				ite : function(a,b){return b}, 
+				s: "falso"
+				};
+			
+			p = { 
+				mostrar: function(){return this.s} 
+				}
+				
+			t.not = f;
+			f.not = t;
+			
+			t.and = function(b){
+				return b;
+			}
+			
+			f.and = function(b){
+				return this;			
+			}
+			
+			Object.setPrototypeOf(t,p);
+			Object.setPrototypeOf(f,p);
+
+			debugger
+		</script>
+	<body>
+	</body>
+</html>

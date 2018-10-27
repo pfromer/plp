@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		
+			function complejo(r,i){
+				this.r = r;
+				this.i = i;
+	
+				this.sumar = function(c){
+					return new complejo(this.r + c.r, this.i + c.i);
+				}				
+			}	
+			
+			
+			c1i = new complejo(1,1);
+			
+			let c = c1i.sumar(c1i)
+			
+			c.restar = function(c){
+				return new complejo(this.r - c.r, this.i - c.i);
+			}
+			
+			//cl1.restar({r:3, i:5}) tira error
+			
+		   debugger
+		</script>
+	<body>
+	</body>
+</html>
