@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		
+		var Punto = function(x,y){
+			this.mostrar = function(){ return "Punto(" + this.x + ", " + this.y + ")"; }
+			this.x = x;
+			this.y = y;
+		}
+					
+		var PuntoColoreado = function(x,y){
+			var _this = this;
+			this.innerPoint = new Punto(x,y);
+			this.color = "default";
+			this.mostrar = function() {return _this.innerPoint.mostrar() + " color: " + this.color; };		
+		}		
+		
+		
+		var PuntoColoreadoConColor = function(x,y,color){
+			this.innerColor = new PuntoColoreado(x,y);
+			this.color = color;
+			this.mostrar = this.innerColor.mostrar;
+		}
+			
+
+		Punto.moverX = function(u){
+			  this.x = this.x + u;
+		}			
+				
+		let p = new PuntoColoreado(1, 2);
+		var m = p.mostrar()
+		console.log(m);
+		let p2 = new PuntoColoreadoConColor(4, 3, "negro") ;
+		debugger
+		console.log(p2.mostrar());
+		
+		let pSinColor = new Punto(8,8);
+		console.log(pSinColor.mostrar());
+			
+		
+		
+		
+		p2.moverX(8);
+		console.log(p2.mostrar());
+		
+		p.moverX(3);
+		console.log(p.mostrar());
+		
+		pSinColor.moverX(9);		
+		console.log(pSinColor.mostrar());
+		
+		</script>
+	<body>
+	</body>
+</html>

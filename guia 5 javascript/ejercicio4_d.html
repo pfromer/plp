@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		
+		let Punto = {
+			new : function(x,y){			
+				return{
+					x: x,
+					y: y,
+					mostrar : function(){
+						return Punto.mostrar(this);		
+					}		
+				}
+			}
+		}
+		
+		Punto.mostrar = function(unPunto){
+			return "Punto(" + unPunto.x + ", " + unPunto.y + ")"; 
+		}
+		
+		let PuntoColoreado = Object.create(Punto);
+		
+		PuntoColoreado.new = function(x,y){			
+				return{
+					x: x,
+					y: y,
+					mostrar : function(){
+						return Punto.mostrar(this)  + "color: " + this.color;		
+					},
+					color : "default"
+				}
+		}
+
+		PuntoColoreado.newWithColor = function(x,y,color){
+				var result = this.new(x,y);
+				result.color = color;
+				return result;
+		}
+		
+		
+		let p = PuntoColoreado.new (1, 2) ;
+		console.log(p.mostrar());
+		let p2 = PuntoColoreado.newWithColor(1, 2, "negro") ;
+		console.log(p2.mostrar());
+		
+		/*Punto.moverX = function(object,u){
+			  object.x = object.x + u;
+		}*/
+		
+		
+		
+		</script>
+	<body>
+	</body>
+</html>

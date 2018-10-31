@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		
+		let Punto = {		
+			mostrar : function(x,y){
+				return "Punto(" + x + "," + y + ")";
+			},
+			new : function(x,y){			
+				return{
+					mostrar : function(){
+						return Punto.mostrar(x,y);		
+					}		
+				}
+			}
+		}
+		
+		let PuntoColoreado = Object.create(Punto);
+		
+		PuntoColoreado.new = function(x,y){			
+				return{
+					mostrar : function(){
+						return PuntoColoreado.mostrar(x,y);		
+					}
+				}
+		}
+
+		
+		
+		let p = PuntoColoreado.new (1 ,2) ;
+		console.log(p. mostrar () );
+		Punto.mostrar = function () { return "UnPunto"};
+		console.log(p. mostrar () );
+		PuntoColoreado.mostrar = function () {return "UnPuntoColoreado"};
+		console.log(p. mostrar () );
+		
+		</script>
+	<body>
+	</body>
+</html>

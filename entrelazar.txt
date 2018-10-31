@@ -1,0 +1,1 @@
+entrelazar = foldr (\x rec -> \l2 -> (if null l2 then x:rec [] else x:head l2:  rec (tail l2) ) (id)

@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		
+		//primer implementacion de clase Punto
+		//var p = Punto.new(1,2);
+		//p.mostrar() devuelve "Punto(1,2)"
+		//pero no puedo modificar la funcion mostrar via Punto.mostrar = ...
+		/*let Punto = {
+			new : function(x,y){
+				return {
+					mostrar : function(){
+						return "Punto(" + x + "," + y + ")";
+					}			
+				}			
+			}	
+		}*/	
+		
+		
+		let Punto = {		
+			mostrar : function(x,y){
+				return "Punto(" + x + "," + y + ")";
+			},
+			new : function(x,y){			
+				return{
+					mostrar : function(){
+						return Punto.mostrar(x,y);		
+					}		
+				}
+			}
+		}
+		
+		</script>
+	<body>
+	</body>
+</html>
