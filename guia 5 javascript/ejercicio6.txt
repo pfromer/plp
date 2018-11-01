@@ -1,0 +1,9 @@
+function C1 () {};
+C1. prototype .g = " Hola ";
+function C2 () {};
+C2. prototype .g = " Mundo ";
+let a = new C1 () ;
+C1. prototype = C2. prototype
+let b = new C1 () ;
+console .log (a.g) ;
+console .log (b.g) ;

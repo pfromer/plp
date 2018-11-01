@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		
+		function extender (o1, o2){		
+			for (k in o1){
+				if(!o2[k]){
+					o2[k] = o1[k];				
+				}
+			}			
+			return o2;
+		}		
+		
+		A = function () {}
+		
+		A.prototype.inicializar = function (n,a) { this . nombre = n; this . apellido = a; return this };
+		A.prototype.presentar = function () { return this . nombre +" " + this . apellido }
+		
+		B = function () {}		
+
+		B.prototype = extender(A.prototype, B.prototype);
+		B.prototype.saludar =  function() { alert ( "Hola" + this.presentar() + "." ) };
+				
+		let a = new A() . inicializar ( " Juan ", " Perez " );
+		let b = new B() . inicializar ( " Pedro ", " Juarez " );
+		
+		//“instancias” de A no puedan responder al mensaje presentar mientras que las instancias de B contin´uan
+		//utilizando la definici´on de presentar dada en la definici´on de A:
+		A.prototype.presentar = undefined;	
+		
+		</script>
+	<body>
+	</body>
+</html>
+

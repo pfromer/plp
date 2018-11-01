@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		A = {
+			inicializar : function (n,a) { this . nombre = n; this . apellido = a; this },
+			presentar : function () { return this . nombre +" " + this . apellido }
+		};
+		
+		B = Object.create(A);
+		B.saludar = function() { alert ( "Hola" + this.presentar() + "." ) };
+		
+		let a = Object.create(A); a.inicializar("Juan", "Perez");
+		let b = Object.create(B); b.inicializar ("Pedro", "Juarez");
+		
+		//este codigo es para que las instancias de A no puedan recibir el mensaje presentar pero las de B si.
+		B.presentar = A.presentar;		
+		A.presentar = undefined;		
+
+		</script>
+	<body>
+	</body>
+</html>
+

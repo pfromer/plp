@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		/*{extender ({a:1,b:true,c:"hola"},{b:1, d:"Mundo"})}
+		eval´ua {b:1, d:"Mundo",a:1,c:"hola"}*/
+				
+		function extender (o1, o2){		
+			for (k in o1){
+				if(!o2[k]){
+					o2[k] = o1[k];				
+				}
+			}			
+			return o2;
+		}		
+		
+		</script>
+	<body>
+	</body>
+</html>
+

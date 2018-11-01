@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		
+		function C1 () {};
+		C1.prototype.g = " Hola ";
+		function C2 () {};
+		C2.prototype.g =  " Mundo ";
+		let a = new C1 () ;
+		C1.prototype = C2.prototype
+		let b = new C1 () ;
+		console.log(a.g); //hola
+		console.log(b.g); //mundo
+		
+		</script>
+	<body>
+	</body>
+</html>
+
+function C1 () {};
+C1.prototype.g = " Hola ";
+function C2 () {};
+C2.prototype.g =  " Mundo ";
+let a = new C1 () ;
+C1.prototype = C2.prototype
+let b = new C1 () ;
+a.__proto__ = C2.prototype
+console.log(a.g); //Mundo
+console.log(b.g); //mundo
+		
+		
+
+function C1 () {};
+C1.prototype.g = " Hola ";
+function C2 () {};
+C2.prototype.g =  " Mundo ";
+let a = new C1 () ;
+C1.prototype.g = C2.prototype.g
+let b = new C1 () ;
+console.log(a.g); //mundo
+console.log(b.g); //mundo
+
+
+
+function C1 () {};
+C1.prototype.g = " Hola ";
+function C2 () {};
+C2.prototype.g =  " Mundo ";
+C1.prototype = C2.prototype
+let a = new C1 () ;
+let b = new C1 () ;
+console.log(a.g); //mundo
+console.log(b.g); //mundo
+
+
+function C1 () {};
+C1.prototype.g = " Hola ";
+function C2 () {};
+C2.prototype.g =  " Mundo ";
+let a = new C1 () ;
+a.__proto__ = C2.prototype
+let b = new C1 () ;
+console.log(a.g); //Mundo
+console.log(b.g); //Hola
