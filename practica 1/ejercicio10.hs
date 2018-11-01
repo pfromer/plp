@@ -15,7 +15,7 @@ Se recomienda utilizar concatMap :: (a -> [b]) -> [a] -> [b], y tambi´en take y
 mySum :: [Int] -> Int
 mySum = foldr (+) 0
 
-myElem :: Eq a => a -> [a] -> Bool
+myElem:: Eq a => a -> [a] -> Bool
 myElem e  = foldr (\x rec -> x==e || rec) False
 
 
