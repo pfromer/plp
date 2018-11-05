@@ -13,7 +13,7 @@ descendiente(X,Y) :- hijo(X,Y).
 descendiente(X,Y) :- hijo(Z,Y), descendiente(X,Z).
 
 ancestro(X, X).
-ancestro(X, Y) :- padre(X, Z), ancestro(Z, Y).
+ancestro(X, Y) :- ancestro(Z, Y), padre(X, Z).
 
 
 /**
@@ -151,6 +151,96 @@ abuelo(Juan, X)
 v. ¿C´omo se puede definir una consulta para conocer a todos los hermanos de pablo?
 
 hermano(pablo, X)
+
+[trace]  ?- ancestro(juan, X).
+   Call: (8) ancestro(juan, _2716) ? creep
+   Exit: (8) ancestro(juan, juan) ? creep
+X = juan ;
+   Redo: (8) ancestro(juan, _2716) ? creep
+   Call: (9) padre(juan, _2934) ? creep
+   Exit: (9) padre(juan, carlos) ? creep
+   Call: (9) ancestro(carlos, _2716) ? creep
+   Exit: (9) ancestro(carlos, carlos) ? creep
+   Exit: (8) ancestro(juan, carlos) ? creep
+X = carlos ;
+   Redo: (9) ancestro(carlos, _2716) ? creep
+   Call: (10) padre(carlos, _2934) ? creep
+   Exit: (10) padre(carlos, daniel) ? creep
+   Call: (10) ancestro(daniel, _2716) ? creep
+   Exit: (10) ancestro(daniel, daniel) ? creep
+   Exit: (9) ancestro(carlos, daniel) ? creep
+   Exit: (8) ancestro(juan, daniel) ? creep
+X = daniel ;
+   Redo: (10) ancestro(daniel, _2716) ? creep
+   Call: (11) padre(daniel, _2934) ? creep
+   Fail: (11) padre(daniel, _2934) ? creep
+   Fail: (10) ancestro(daniel, _2716) ? creep
+   Redo: (10) padre(carlos, _2934) ? creep
+   Exit: (10) padre(carlos, diego) ? creep
+   Call: (10) ancestro(diego, _2716) ? creep
+   Exit: (10) ancestro(diego, diego) ? creep
+   Exit: (9) ancestro(carlos, diego) ? creep
+   Exit: (8) ancestro(juan, diego) ? creep
+X = diego ;
+   Redo: (10) ancestro(diego, _2716) ? creep
+   Call: (11) padre(diego, _2934) ? creep
+   Fail: (11) padre(diego, _2934) ? creep
+   Fail: (10) ancestro(diego, _2716) ? creep
+   Fail: (9) ancestro(carlos, _2716) ? creep
+   Redo: (9) padre(juan, _2934) ? creep
+   Exit: (9) padre(juan, luis) ? creep ---VOY POR ACA
+   Call: (9) ancestro(luis, _2716) ? creep
+   Exit: (9) ancestro(luis, luis) ? creep
+   Exit: (8) ancestro(juan, luis) ? creep
+X = luis ;
+   Redo: (9) ancestro(luis, _2716) ? creep
+   Call: (10) padre(luis, _2934) ? creep
+   Exit: (10) padre(luis, pablo) ? creep
+   Call: (10) ancestro(pablo, _2716) ? creep
+   Exit: (10) ancestro(pablo, pablo) ? creep
+   Exit: (9) ancestro(luis, pablo) ? creep
+   Exit: (8) ancestro(juan, pablo) ? creep
+X = pablo ;
+   Redo: (10) ancestro(pablo, _2716) ? creep
+   Call: (11) padre(pablo, _2934) ? creep
+   Fail: (11) padre(pablo, _2934) ? creep
+   Fail: (10) ancestro(pablo, _2716) ? creep
+   Redo: (10) padre(luis, _2934) ? creep
+   Exit: (10) padre(luis, manuel) ? creep
+   Call: (10) ancestro(manuel, _2716) ? creep
+   Exit: (10) ancestro(manuel, manuel) ? creep
+   Exit: (9) ancestro(luis, manuel) ? creep
+   Exit: (8) ancestro(juan, manuel) ? creep
+X = manuel ;
+   Redo: (10) ancestro(manuel, _2716) ? creep
+   Call: (11) padre(manuel, _2934) ? creep
+   Fail: (11) padre(manuel, _2934) ? creep
+   Fail: (10) ancestro(manuel, _2716) ? creep
+   Redo: (10) padre(luis, _2934) ? creep
+   Exit: (10) padre(luis, ramiro) ? creep
+   Call: (10) ancestro(ramiro, _2716) ? creep
+   Exit: (10) ancestro(ramiro, ramiro) ? creep
+   Exit: (9) ancestro(luis, ramiro) ? creep
+   Exit: (8) ancestro(juan, ramiro) ? creep
+X = ramiro ;
+   Redo: (10) ancestro(ramiro, _2716) ? creep
+   Call: (11) padre(ramiro, _2934) ? creep
+   Exit: (11) padre(ramiro, fabian) ? creep
+   Call: (11) ancestro(fabian, _2716) ? creep
+   Exit: (11) ancestro(fabian, fabian) ? creep
+   Exit: (10) ancestro(ramiro, fabian) ? creep
+   Exit: (9) ancestro(luis, fabian) ? creep
+   Exit: (8) ancestro(juan, fabian) ? creep
+X = fabian ;
+   Redo: (11) ancestro(fabian, _2716) ? creep
+   Call: (12) padre(fabian, _2934) ? creep
+   Fail: (12) padre(fabian, _2934) ? creep
+   Fail: (11) ancestro(fabian, _2716) ? creep
+   Fail: (10) ancestro(ramiro, _2716) ? creep
+   Fail: (9) ancestro(luis, _2716) ? creep
+   Fail: (8) ancestro(juan, _2716) ? creep
+false.
+
 			
 			
 			*/
