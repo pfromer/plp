@@ -1,0 +1,165 @@
+ancestro(X, X).
+ancestro(X, Y) :- ancestro(Z, Y), padre(X, Z).
+
+juan
+	carlos
+		daniel
+		diego
+	luis
+		pablo
+		manuel
+		ramiro
+			fabian
+
+
+[trace]  ?- ancestro(juan, X).
+   Call: (8) ancestro(juan, _2770) ? creep
+   Exit: (8) ancestro(juan, juan) ? creep
+X = juan ;
+   Redo: (8) ancestro(juan, _2770) ? creep
+   Call: (9) ancestro(_2988, _2770) ? creep
+   Exit: (9) ancestro(_2770, _2770) ? creep
+   Call: (9) padre(juan, _2770) ? creep
+   Exit: (9) padre(juan, carlos) ? creep
+   Exit: (8) ancestro(juan, carlos) ? creep
+X = carlos ;
+   Redo: (9) padre(juan, _2770) ? creep
+   Exit: (9) padre(juan, luis) ? creep
+   Exit: (8) ancestro(juan, luis) ? creep
+X = luis ;
+   Redo: (9) ancestro(_2988, _2770) ? creep
+   Call: (10) ancestro(_2988, _2770) ? creep
+   Exit: (10) ancestro(_2770, _2770) ? creep
+   Call: (10) padre(_2988, _2770) ? creep
+   Exit: (10) padre(juan, carlos) ? creep
+   Exit: (9) ancestro(juan, carlos) ? creep
+   Call: (9) padre(juan, juan) ? creep
+   Fail: (9) padre(juan, juan) ? creep
+   Redo: (10) padre(_2988, _2770) ? creep
+   Exit: (10) padre(juan, luis) ? creep
+   Exit: (9) ancestro(juan, luis) ? creep
+   Call: (9) padre(juan, juan) ? creep
+   Fail: (9) padre(juan, juan) ? creep
+   Redo: (10) padre(_2988, _2770) ? creep
+   Exit: (10) padre(carlos, daniel) ? creep
+   Exit: (9) ancestro(carlos, daniel) ? creep
+   Call: (9) padre(juan, carlos) ? creep
+   Exit: (9) padre(juan, carlos) ? creep
+   Exit: (8) ancestro(juan, daniel) ? creep
+X = daniel ;
+   Redo: (9) padre(juan, carlos) ? creep
+   Fail: (9) padre(juan, carlos) ? creep
+   Redo: (10) padre(_2988, _2770) ? creep
+   Exit: (10) padre(carlos, diego) ? creep
+   Exit: (9) ancestro(carlos, diego) ? creep
+   Call: (9) padre(juan, carlos) ? creep
+   Exit: (9) padre(juan, carlos) ? creep
+   Exit: (8) ancestro(juan, diego) ? creep
+X = diego ;
+   Redo: (9) padre(juan, carlos) ? creep
+   Fail: (9) padre(juan, carlos) ? creep
+   Redo: (10) padre(_2988, _2770) ? creep
+   Exit: (10) padre(luis, pablo) ? creep
+   Exit: (9) ancestro(luis, pablo) ? creep
+   Call: (9) padre(juan, luis) ? creep
+   Exit: (9) padre(juan, luis) ? creep
+   Exit: (8) ancestro(juan, pablo) ? creep
+X = pablo ;
+   Redo: (10) padre(_2988, _2770) ? creep
+   Exit: (10) padre(luis, manuel) ? creep
+   Exit: (9) ancestro(luis, manuel) ? creep
+   Call: (9) padre(juan, luis) ? creep
+   Exit: (9) padre(juan, luis) ? creep
+   Exit: (8) ancestro(juan, manuel) ? creep
+X = manuel ;
+   Redo: (10) padre(_2988, _2770) ? creep
+   Exit: (10) padre(luis, ramiro) ? creep
+   Exit: (9) ancestro(luis, ramiro) ? creep
+   Call: (9) padre(juan, luis) ? creep
+   Exit: (9) padre(juan, luis) ? creep
+   Exit: (8) ancestro(juan, ramiro) ? creep
+X = ramiro ;
+   Redo: (10) padre(_2988, _2770) ? creep
+   Exit: (10) padre(ramiro, fabian) ? creep
+   Exit: (9) ancestro(ramiro, fabian) ? creep
+   Call: (9) padre(juan, ramiro) ? creep
+   Fail: (9) padre(juan, ramiro) ? creep
+   Redo: (10) ancestro(_2988, _2770) ? creep
+   Call: (11) ancestro(_2988, _2770) ? creep
+   Exit: (11) ancestro(_2770, _2770) ? creep
+   Call: (11) padre(_2988, _2770) ? creep
+   Exit: (11) padre(juan, carlos) ? creep
+   Exit: (10) ancestro(juan, carlos) ? creep
+   Call: (10) padre(_2988, juan) ? creep
+   Fail: (10) padre(_2988, juan) ? creep
+   Redo: (11) padre(_2988, _2770) ? creep
+   Exit: (11) padre(juan, luis) ? creep
+   Exit: (10) ancestro(juan, luis) ? creep
+   Call: (10) padre(_2988, juan) ? creep
+   Fail: (10) padre(_2988, juan) ? creep
+   Redo: (11) padre(_2988, _2770) ? creep
+   Exit: (11) padre(carlos, daniel) ? creep
+   Exit: (10) ancestro(carlos, daniel) ? creep
+   Call: (10) padre(_2988, carlos) ? creep
+   Exit: (10) padre(juan, carlos) ? creep
+   Exit: (9) ancestro(juan, daniel) ? creep
+   Call: (9) padre(juan, juan) ? creep
+   Fail: (9) padre(juan, juan) ? creep
+   Redo: (11) padre(_2988, _2770) ? creep
+   Exit: (11) padre(carlos, diego) ? creep
+   Exit: (10) ancestro(carlos, diego) ? creep
+   Call: (10) padre(_2988, carlos) ? creep
+   Exit: (10) padre(juan, carlos) ? creep
+   Exit: (9) ancestro(juan, diego) ? creep
+   Call: (9) padre(juan, juan) ? creep
+   Fail: (9) padre(juan, juan) ? creep
+   Redo: (11) padre(_2988, _2770) ? creep
+   Exit: (11) padre(luis, pablo) ? creep
+   Exit: (10) ancestro(luis, pablo) ? creep
+   Call: (10) padre(_2988, luis) ? creep
+   Exit: (10) padre(juan, luis) ? creep
+   Exit: (9) ancestro(juan, pablo) ? creep
+   Call: (9) padre(juan, juan) ? creep
+   Fail: (9) padre(juan, juan) ? creep
+   Redo: (11) padre(_2988, _2770) ? creep
+   Exit: (11) padre(luis, manuel) ? creep
+   Exit: (10) ancestro(luis, manuel) ? creep
+   Call: (10) padre(_2988, luis) ? creep
+   Exit: (10) padre(juan, luis) ? creep
+   Exit: (9) ancestro(juan, manuel) ? creep
+   Call: (9) padre(juan, juan) ? creep
+   Fail: (9) padre(juan, juan) ? creep
+   Redo: (11) padre(_2988, _2770) ? creep
+   Exit: (11) padre(luis, ramiro) ? creep
+   Exit: (10) ancestro(luis, ramiro) ? creep
+   Call: (10) padre(_2988, luis) ? creep
+   Exit: (10) padre(juan, luis) ? creep
+   Exit: (9) ancestro(juan, ramiro) ? creep
+   Call: (9) padre(juan, juan) ? creep
+   Fail: (9) padre(juan, juan) ? creep
+   Redo: (11) padre(_2988, _2770) ? creep
+   Exit: (11) padre(ramiro, fabian) ? creep
+   Exit: (10) ancestro(ramiro, fabian) ? creep
+   Call: (10) padre(_2988, ramiro) ? creep
+   Exit: (10) padre(luis, ramiro) ? creep
+   Exit: (9) ancestro(luis, fabian) ? creep
+   Call: (9) padre(juan, luis) ? creep
+   Exit: (9) padre(juan, luis) ? creep
+   Exit: (8) ancestro(juan, fabian) ? creep
+X = fabian ;
+   Redo: (11) ancestro(_2988, _2770) ? creep
+   Call: (12) ancestro(_2988, _2770) ? creep
+   Exit: (12) ancestro(_2770, _2770) ? creep
+   Call: (12) padre(_2988, _2770) ? creep
+   Exit: (12) padre(juan, carlos) ? creep
+   Exit: (11) ancestro(juan, carlos) ? creep
+   Call: (11) padre(_2988, juan) ? creep
+   Fail: (11) padre(_2988, juan) ? creep
+   Redo: (12) padre(_2988, _2770) ? creep
+   Exit: (12) padre(juan, luis) ? creep
+   Exit: (11) ancestro(juan, luis) ? creep
+   Call: (11) padre(_2988, juan) ? creep
+   Fail: (11) padre(_2988, juan) ? creep
+   Redo: (12) padre(_2988, _2770) ? creep
+   Exit: (12) padre(carlos, daniel) ? creep
+   Exit: (11) ancestro(carlos, daniel) ? 
