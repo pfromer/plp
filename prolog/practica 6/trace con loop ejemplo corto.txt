@@ -1,0 +1,55 @@
+trace con loop ejemplo mas corto
+
+[trace]  ?- ancestro(juan, X).
+   Call: (8) ancestro(juan, _3540) ? creep
+   Exit: (8) ancestro(juan, juan) ? creep
+X = juan ;
+   Redo: (8) ancestro(juan, _3540) ? creep
+   Call: (9) ancestro(_3756, _3540) ? creep
+   Exit: (9) ancestro(_3540, _3540) ? creep
+   Call: (9) padre(juan, _3540) ? creep
+   Exit: (9) padre(juan, carlos) ? creep
+   Exit: (8) ancestro(juan, carlos) ? creep
+X = carlos ;
+   Redo: (9) padre(juan, _3540) ? creep
+   Exit: (9) padre(juan, luis) ? creep
+   Exit: (8) ancestro(juan, luis) ? creep
+X = luis ;
+   Redo: (9) ancestro(_3756, _3540) ? creep
+   Call: (10) ancestro(_3756, _3540) ? creep
+   Exit: (10) ancestro(_3540, _3540) ? creep
+   Call: (10) padre(_3756, _3540) ? creep
+   Exit: (10) padre(juan, carlos) ? creep
+   Exit: (9) ancestro(juan, carlos) ? creep
+   Call: (9) padre(juan, juan) ? creep
+   Fail: (9) padre(juan, juan) ? creep
+   Redo: (10) padre(_3756, _3540) ? creep
+   Exit: (10) padre(juan, luis) ? creep
+   Exit: (9) ancestro(juan, luis) ? creep
+   Call: (9) padre(juan, juan) ? creep
+   Fail: (9) padre(juan, juan) ? creep
+   Redo: (10) ancestro(_3756, _3540) ? creep
+   Call: (11) ancestro(_3756, _3540) ? creep
+   Exit: (11) ancestro(_3540, _3540) ? creep
+   Call: (11) padre(_3756, _3540) ? creep
+   Exit: (11) padre(juan, carlos) ? creep
+   Exit: (10) ancestro(juan, carlos) ? creep
+   Call: (10) padre(_3756, juan) ? creep
+   Fail: (10) padre(_3756, juan) ? creep
+   Redo: (11) padre(_3756, _3540) ? creep
+   Exit: (11) padre(juan, luis) ? creep
+   Exit: (10) ancestro(juan, luis) ? creep
+   Call: (10) padre(_3756, juan) ? creep PORQUE no dice de los dos lados juan
+   Fail: (10) padre(_3756, juan) ? creep
+   Redo: (11) ancestro(_3756, _3540) ? creep
+   Call: (12) ancestro(_3756, _3540) ? creep
+   Exit: (12) ancestro(_3540, _3540) ? creep
+   Call: (12) padre(_3756, _3540) ? creep
+   Exit: (12) padre(juan, carlos) ? creep
+   Exit: (11) ancestro(juan, carlos) ? creep
+   Call: (11) padre(_3756, juan) ? creep
+   Fail: (11) padre(_3756, juan) ? creep
+   Redo: (12) padre(_3756, _3540) ? creep
+   Exit: (12) padre(juan, luis) ? creep
+   Exit: (11) ancestro(juan, luis) ? creep
+   Call: (11) padre(_3756, juan) ? creep
