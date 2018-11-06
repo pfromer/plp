@@ -17,43 +17,7 @@ ancestro(X, Y) :- ancestro(Z, Y), padre(X, Z).
 
 
 /**
-ancestro(juan, X)
-	X <- juan. 
-	ancestro(juan, Y) 
-		ancestro(_z0, Y) ESTE POR AHORA SOLO LO RESUELVO CON PRIMERA LINREA
-			_z0 <- Y. 
-		padre(juan, Y)
-			Y <- carlos
-			Y <- luis	
-			ancestro(z1, Y)
-				Y <- z1. 
-				ancestro(Y, Y)
-			padre(z0, z1)
-
-
-
-ancestro(juan, X)
-	ancestro(juan, juan).
-		X <- juan.
-	ancestro(Z0, X), padre(juan, Z0).
-		ancestro(Z0, Z0).
-			X <- Z0.
-			padre(juan, ZO)
-				Z0 <- carlos.
-					ancestro(carlos, X), padre(juan, carlos).
-						ancestro(carlos, carlos)
-							X <- carlos.							
-				Z0 <- luis.
-					ancestro(luis, X), padre(juan, luis).
-						
 	
-ancestro(z0, X), padre(juan, z0)
-	ancestro(z0, z0)
-		X <- z0.
-	padre(juan, z0)
-		z0 <- carlos.
-		z0 <- luis.
-		
 
 
 iii Dibujar el ´arbol de b´usqueda de Prolog para la consulta descendiente(Alguien, juan).
