@@ -24,7 +24,10 @@ subconjuntosN(N, [], []).
 subconjuntosN(0, L, []) :- L \= [].					
 subconjuntosN(N,L,[E|Ls]) :-  N =\= 0, L \= [], member(E,L), N2 is N-1, subtract(L,[E],L2), subconjuntosN(N2, L2, Ls).				
 		
-
+iesimo(L, 0, X) :- head(L,X).		
+iesimo([E|Ls],I,X) :- I \= 0, I2 is I-1, iesimo(Ls, I2, X). 
+		
+		
 /*
 ----------------------------Item I-----------------------------------
 */
@@ -51,18 +54,33 @@ arbolConNodosRepetidos(L,bin(Left,V,Right), bin(LeftInstanciado,E,RightInstancia
 ----------------------------Item III-----------------------------------
 */
 sinRepeEn(X, L) :- length(L, LengthL), between(0, LengthL, N), todosLosArbolesDeNNodos(N, ArbolSinInstanciar), 
-				arbolInstanciado(L, ArbolSinInstanciar, X).
+				subconjuntosN(N, L, SubConjL),
+				arbolInstanciado(SubConjL, ArbolSinInstanciar, X).
+
+
 
 /*
-este predicado no anda bien porque devuelve repetidos por ejemplo
-cuando pregunto por 
+ahora funciona bien. instancia un solo arbol. desde arriba le paso la estructura y como quiero que lo instancie.
+la cantidad de nodos del arbol ya coincide con la cantidad de elementos de la lista 
 */				
 arbolInstanciado([], nil, nil).
-arbolInstanciado(L, bin(Left,V,Right), bin(LeftInstanciado,E,RightInstanciado)) :- L\=[],cantidadNodos(Left, CantidadNodosArbolT1), 
-												CN2 is CantidadNodosArbolT1 + 1,
-												subconjuntosN(CN2, L, SubConj),
-												head(SubConj,E), tail(SubConj,Ls),
-												arbolInstanciado(Ls,Left,LeftInstanciado),
-												subtract(L,SubConj,Subtracted),
-												cantidadNodos(Right, N2), subconjuntosN(N2,Subtracted,S),
-												arbolInstanciado(S,Right,RightInstanciado).
+arbolInstanciado(L, bin(Left,V,Right), bin(LeftInstanciado,E,RightInstanciado)) :- L\=[],
+																					cantidadNodos(Left, NodosLeft),
+																					prefijo(P, L), length(P, NodosLeft),
+																					arbolInstanciado(P, Left, LeftInstanciado),
+																					iesimo(L, NodosLeft, E), 
+																					cantidadNodos(Right, NodosRight),
+																					sufijo(S, L), length(S, NodosRight),
+																					arbolInstanciado(S, Right, RightInstanciado).
+																					
+
+
+
+
+
+
+
+
+
+
+
