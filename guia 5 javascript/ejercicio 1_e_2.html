@@ -24,6 +24,12 @@
 				return new complejo(this.r - c.r, this.i - c.i);
 			}
 			
+			//la otra opcion a lo anterior es hacerlo en la property "prototype" pero del constructor:
+			//complejo.prototype.restar = function(c){
+			//	return new complejo(this.r - c.r, this.i - c.i);
+			//}
+			
+			
 			//c1i.restar({r:3, i:5}) no tira error
 			//c.restar({r:3, i:5}) tampoco
 			

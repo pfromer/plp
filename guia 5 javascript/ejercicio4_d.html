@@ -38,14 +38,18 @@
 		}
 		
 		
-		let p = PuntoColoreado.new (1, 2) ;
-		console.log(p.mostrar());
-		let p2 = PuntoColoreado.newWithColor(1, 2, "negro") ;
-		console.log(p2.mostrar());
+		let p1 = Punto.new(1,2);
+		let pc1 = PuntoColoreado.new(1,2);
 		
-		/*Punto.moverX = function(object,u){
-			  object.x = object.x + u;
-		}*/
+		Punto.moverX = function(u){
+			  this.x = this.x + u;
+		}
+		
+		
+		let p2 = Punto.new (1, 2);
+		let pc2 = PuntoColoreado.new(1, 2);
+		
+		//por como esta hecho ninguna instancia entiende al mensaje moverX
 		
 		
 		

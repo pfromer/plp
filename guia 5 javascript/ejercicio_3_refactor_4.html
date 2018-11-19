@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		
+ /*Se desea definir a los n´umeros naturales como objetos. Los mismos deben proveer las operaciones esCero
+and succ que permiten respectivamente testear si el receptor del mensaje es 0 o no, y obtener al sucesor
+del receptor. Adem´as, todos los n´umeros distintos de 0 deben proveer la operaci´on pred. Ninguna de las
+operaciones debe modificar al objeto receptor del mensaje. Su soluci´on no debe utilizar los tipos number ni
+Number.*/
+
+
+		var natural = {
+			succ : function() {
+					var result = Object.create(mayorQueZero);
+					result.pred = this;
+					return result;
+				}		
+		}
+		
+		var zero = {
+			esCero : true,
+			toNumber : function(){return 0;},
+			for: function(o) {return undefined}		
+		}
+		
+		var mayorQueZero = {
+			esCero : false,
+			toNumber : function(){return 1 + this.pred.toNumber();},
+			for: function(o) {
+				this.pred.for(o);				
+				o.eval(this);
+			} 
+		}
+		
+		Object.setPrototypeOf(zero, natural);
+		Object.setPrototypeOf(mayorQueZero, natural);
+		
+		testObject = function(a, b, okMessage, errorMessage){
+			return { a: eval(a), b: eval(b), okMessage: a + " == " + b, errorMessage: a + " != " + b}		
+		}
+		
+		var tests = [
+			testObject("0", "zero.toNumber()"),
+			testObject("1", "zero.succ().toNumber()"),
+			testObject("2", "zero.succ().succ().toNumber()"),
+			testObject("1", "zero.succ().succ().pred.toNumber()"),
+			testObject("true", "zero.esCero"),
+			testObject("false", "zero.succ().esCero")
+		]
+		
+		testEquality = function(t){
+			if(t.a == t.b){
+				console.log(t.okMessage);
+				return true;
+			}
+			else{
+				console.log(t.errorMessage);
+				return false;
+			}
+		}
+		
+		for (var i = 0; i < tests.length; i++) {
+			testEquality(tests[i])
+		}
+		
+		//testear que 
+		//var f2 = { eval : function (i) { console . log(i. toNumber() ) }};
+		//zero.succ().succ().for(f2);
+		//imprime:
+		//1
+		//2
+		
+		</script>
+	<body>
+	</body>
+</html>

@@ -10,9 +10,9 @@
 					return new complejo(this.r + c.r, this.i + c.i);
 				}
 
-				this.mostrar = function(){
-					return r.toString() + " + " + i.toString() + "i";
-				}	
+				//this.mostrar = function(){
+				//	return r.toString() + " + " + i.toString() + "i";
+				//}	
 				
 			}	
 			
@@ -30,10 +30,12 @@
 				return new complejo(this.r - c.r, this.i - c.i);
 			}
 			
-			//c1i.restar({r:3, i:5}) no tira error
-			//c.restar({r:3, i:5}) tampoco
+			c.__proto__.mostrar = function(){
+				return this.r.toString() + " + " + this.i.toString() + "i";
+			}
 			
-		   debugger
+			//c1i.mostrar() no tira error
+			//c.mostrar() tampoco
 		</script>
 	<body>
 	</body>
