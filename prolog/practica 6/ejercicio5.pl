@@ -25,7 +25,9 @@ sufijo(S, L) :- append(_,S,L).
 /*
 problema: el predicado sublista devuelve resultados repetidos.
 */
-sublista(SUB,L) :- prefijo(P, L), sufijo(S, L), append(P, SUB, M), append(M, S, L).
+
+sublista([],L).
+sublista(SUB,L) :- prefijo(P, L),  append(P, SUB, M), append(M, S, L), SUB \= [].
 
 pertenece(X,L) :- sublista([X],L).
 
