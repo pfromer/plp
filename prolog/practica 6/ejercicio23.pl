@@ -1,9 +1,9 @@
 esNodo(G,X)
 esArista(G,X,Y)
 
-caminoSimple(G,D,H,[H]):- esNodo(G,D), D = H.
-caminoSimple(G,D,H,[D|L]) :- esNodo(G,D), D \= H, esArista(G, D, X), 
-										caminoSimple(G, X, H, L), sinRepetidos([D|L]).
+caminoSimple(G,Start,End,[End]):- esNodo(G,Start), Start = End.
+caminoSimple(G,Start,End,[Start|L]) :- esNodo(G,Start), Start \= End, esArista(G, Start, X), X\=Start,
+										caminoSimple(G, X, End, L), sinRepetidos([Start|L]).
 										
 caminoHamiltoniano(G,L) :- esNodo(G,D), esNodo(G,H), caminoSimple(G,D,H,L), not(existeNodoEnGQueNoEstaEnL(G,L)).
 existeNodoEnGQueNoEstaEnL :- esNodo(G,X), not(member(X,L)).						 

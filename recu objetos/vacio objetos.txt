@@ -1,0 +1,27 @@
+aca lo tengo!
+donde veas la S mayúscula es el símbolo ese raro que va al principio de todos los métodos.
+
+donde esta la expresion (x == y) if true o.pertenece(y)
+
+eso lo tenes que interpretar como los objetos true y false en el ejercicio 11 de la guia.
+
+true.if v1 v2 = v1
+false.if v1 v2 = v2
+
+entonces si x es igual a y la expresion "(x == y) if true o.pertenece(y)" resume a true, y en caso
+de que x sea diferente esa expresion resume al objeto o.pertenece(y)
+
+cualquier cosa avisame
+
+-------------------------------------------
+
+vacio = 
+[
+	hayElementos = false,
+	sacar = vacio,
+	pertenece = false,
+	agregar = S(o)lambda(x) ((s.hayElementos := true).pertenece := (lambda(y) (x == y) if true o.pertenece(y)))
+							.sacar := (lambda(z) (z==x) o o.sacar(z).agregar(x))
+
+
+]
