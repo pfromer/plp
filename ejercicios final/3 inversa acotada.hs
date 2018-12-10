@@ -7,3 +7,7 @@ position [] a = 0
 
 member::Eq a =>[a]->a->Bool
 member l a = foldr (\ x rec -> if x == a then True else False || rec ) False l
+
+
+inversaAcotada::Eq b =>(a->b)->[a]->b->Maybe a
+inversaAcotada f l = funcionizar (map f l) l
