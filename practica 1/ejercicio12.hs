@@ -15,6 +15,7 @@ porque en la funcion, al no recibir la cola de la lista como argumento no tiene 
 entonces no hay forma de sacar una sola aparicion del elemento, es decir solo serviria para sacar todas las apariciones del elemento
 -}
 
+
 {-|
 sacarUna 2 [1,2,2,3]
 recr (\x xs rec-> if 2 == x then xs else x:rec) []  2 [1,2,2,3]
@@ -24,12 +25,8 @@ recr (\x xs rec-> if 2 == x then xs else x:rec) []  2 [1,2,2,3]
 1:[2,3] 
 -}
 
---listasQueSuman:: Int -> [[Int]]
---listasQueSuman 0 = [[]]
---listasQueSuman n = recr (\x xs rec-> ) [[]] 
-
---listasQueSuman n = [x:l| x <- [1..n], l <- listasQueSuman (n-x)]
---listasQueSuman n = recr (\x xs rec-> [x:l| l <- listasQueSuman (n-x)] ++ rec) [[]] [1..n]
+listasQueSuman:: Int -> [[Int]]
+listasQueSuman n = recr (\x xs rec-> [x:l| l <- listasQueSuman (n-x)] ++ rec) [[n]] [1..(n-1)]
 
 
 {-|
