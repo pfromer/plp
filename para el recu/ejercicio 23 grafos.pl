@@ -5,26 +5,29 @@ caminoSimple(+G,+D,+H,?L)
 */
 
 
-
+grafo([[1,2,3],[[1,2],[2,3]]]).
+grafo([[1,2,3,4,5], [[1,2],[2,3],[3,4],[1,5],[4,5]]]).
 
 esNodo(G,X) :- append([Nodos],_,G), member(X,Nodos).
 esArista(G,X,Y) :- append(_,[Aristas],G), member([X,Y],Aristas).
 esArista(G,X,Y) :- append(_,[Aristas],G), member([Y,X],Aristas).
 
-caminoSimple(G,Start,End,L) :- buscarCaminosSimples(G,Start,End,L,[]).
+caminoSimple(G,Start,End,L) :- buscarCaminosSimples(G,Start,End,L,[Start]).
 
 buscarCaminosSimples(G,Start,End,[End],_) :- esNodo(G,Start), Start = End.
 buscarCaminosSimples(G,Start,End,[Start|L],NodosYaVisitados) :- esNodo(G,Start), Start \= End,
 																esArista(G, Start, X), 
 																not(member(X,NodosYaVisitados)),
 																append(NodosYaVisitados,[X],NodosYaVisitados2),																
-																buscarCaminosSimples(G, X, End,L,NodosYaVisitados2),
+																buscarCaminosSimples(G, X, End,L,NodosYaVisitados2).
+																
+																/*
 																sinRepetidos([Start|L]).
 																
 sinRepetidos([]).
 sinRepetidos([E|L]) :- not(member(E,L)), sinRepetidos(L).
 
-
+*/
 
 
 
