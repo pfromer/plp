@@ -11,8 +11,7 @@ cuadradoSemiLatinoDeDimensionNMYLasFilasSumanK(N,0,K,[]).
 cuadradoSemiLatinoDeDimensionNMYLasFilasSumanK(N,M,K,[X|Xs]) :- M\=0, listaDeTamanoNQueSumaK(N,K,X), M2 is M - 1, 
 															cuadradoSemiLatinoDeDimensionNMYLasFilasSumanK(N,M2,K,Xs).
 															
-			
-%listaDeTamanoNQueSumaK(N,K,L).			
+					
 listaDeTamanoNQueSumaK(0,_,[]).
 listaDeTamanoNQueSumaK(N,K,[X|Xs]) :- N\=0, between(0,K,X), K2 is K - X, N2 is N-1, listaDeTamanoNQueSumaK(N2,K2,Xs), sumatoria(Xs, K2).
 
