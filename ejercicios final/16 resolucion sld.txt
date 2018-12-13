@@ -1,0 +1,37 @@
+Ejercicio 16
+a) Cual es la relacion entre el arbol de resolucion y el arbol de busqueda de Prolog?
+
+Resoluci´on SLD en Prolog
+I Prolog utiliza resoluci´on SLD con las siguientes restricciones
+I Regla de b´usqueda: se seleccionan las cl´ausulas de programa
+de arriba hacia abajo, en el orden en que fueron introducidas
+I Regla de selecci´on: seleccionar el ´atomo de m´as a la izquierda
+I La suma de regla de b´usqueda y regla de selecci´on se llama
+estrategia
+I Cada estrategia determina un ´arbol de b´usqueda o ´arbol SLD
+
+B´usqueda de refutaciones SLD en Prolog
+I Recorre el ´arbol SLD en profundidad (“depth-first search”)
+I La ventaja del recorrido en profundidad es que puede ser
+implementado de manera muy eficiente
+I Se usa una pila para representar los atomos del goal
+I Se hace un push del resolvente del atomo del tope de la pila
+con la clausula de definicion
+I Se hace un pop cuando el atomo del tope de la pila no unifica
+con ninguna clausula de definicion mas (luego, el atomo que
+queda en el tope se unifica con la siguiente clausula de
+definicion)
+I Desventaja: ¡puede que no encuentre una refutaci´on SLD a´un
+si existe!
+
+
+
+
+b) >Por que al utilizar resolucion general el espacio de busqueda crece en cada paso, y con resolucion SLD esto
+no sucede?
+
+
+
+
+c) >Que hay que vericar antes de llamar al algoritmo mgu para unicar dos clausulas?
+d) Calcular el resolvente entre las siguientes clausulas: fP(x; y)g; f:P(y; f(y))g.
