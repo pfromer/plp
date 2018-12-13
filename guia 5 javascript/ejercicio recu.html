@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<script type="text/javascript">
+		    let c1 = {val: 1, avanzar: function(){this.val++;}, avanzarSi: function(cond){if (cond) this.avanzar();}};
+			let c2 = Object.create(c1);
+			c2.avanzar=function(){this.val *= 2};
+			c1.avanzar();
+			c2.avanzarSi(true);
+			c1.avanzarSi(true);	
+
+		 var Contador = function(modoDeAvance){		 
+			this.val = 1;
+			this.avanzar = function(){			
+				this.val = modoDeAvance(this.val);
+			}
+		 } 	
+		 
+		 let cont = new Contador(function(v){return v+4});	
+		 cont.avanzar()		 
+		 console.log("5");
+		 console.log(cont.val);
+		</script>
+	<body>
+	</body>
+</html>
+
+
+1 1
+2 1
+2 2
+3 2
+
+
+1 1
+2 2
+2 4
+3 4
+
+

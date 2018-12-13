@@ -1,0 +1,41 @@
+origen = 
+[	x = 0,
+	y = 0,
+	mv= S(z)lambda(dx)lambda(dy)(x.z:= z.x + dx).y := z.y+ dy	
+]
+
+Punto = 
+[
+	new = S(z)[
+				x = S(s)z.x(s),
+				y = S(s)z.y(s),
+				mv = S(s)z.mv(s)
+			  ]
+				
+	x = lambda(s)0,
+	y = lambda(s)0,
+	mv = lambda(s)lambda(dx)lambda(dy)(s.x := s.x + dy).y := s.y + dy			
+]
+
+
+Punto -> Punto  [x = S(s)Punto.x(s), y = S(s)Punto.y(s), mv = S(s)Punto.mv(s)]{Punto/z} ->  o
+--------------------------------------------------------------------------------------------------sel
+				Punto.new -> [x = S(s)Punto.x(s), y = S(s)Punto.y(s), mv = S(s)Punto.mv(s)]
+				
+o = [x = S(s)Punto.x(s), y = S(s)Punto.y(s), mv = S(s)Punto.mv(s)]
+
+PuntoColoreado =
+[
+	new = S(z)[
+				x = S(s)z.x(s),
+				y = S(s)z.y(s),
+				mv = S(s)z.mv(s),
+				color = S(s)z.color(s)				
+			  ]
+	x = Punto.x,
+	y = Punto.y,
+	mv = Punto.mv,
+	color = lambda(s)"rojo"
+
+	newConColor = S(z)lambda(unColor)(c.new).color := unColor 
+]

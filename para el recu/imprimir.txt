@@ -1,0 +1,411 @@
+-------------SUBCONJUNTOS SIN PERMUTACIONES POR GABI--------------
+
+subconjuntoDe(_,[]).
+subconjuntoDe(L,[X|XS]) :- append(_,[X|Resto],L), subconjuntoDe(Resto,XS).
+
+-----------------EJERCICIOS ABROLES-------------------------------------
+
+vacio(nil).
+arbol(nil).
+arbol(bin(I,R,D)) :- arbol(I), arbol(D).
+
+raiz(bin(I,R,D),R) :- arbol(I), arbol(D).
+
+altura(nil,0).
+altura(bin(I,R,D),N) :- altura(I,AI), altura(D,AD), maximo(AI, AD, MaxAltura), N is MaxAltura + 1.
+
+cantidadDeNodos(nil,0).
+cantidadDeNodos(bin(I,R,D),N) :- cantidadDeNodos(I,CI), cantidadDeNodos(D,CD), N is CI + CD + 1.
+
+inorder(nil, []).
+inorder(bin(I,R,D), L) :- inorder(I,II), inorder(D,ID), append(II, [R], Pref), append(Pref, ID, L).
+
+arbolConInorder([],nil).
+arbolConInorder([E|L],bin(nil,E,D)) :- arbolConInorder(L,D). 
+
+aBB(nil).
+aBB(bin(I,R,D)) :- aBB(I), aBB(D), todosSonMasChicos(I,R), todosSonMasGrandes(D,R).
+
+todosSonMasChicos(nil,X).
+todosSonMasChicos(bin(I,R1,D), X) :- R1 < X, todosSonMasChicos(I,X), todosSonMasChicos(D,X).
+
+todosSonMasGrandes(nil,X).
+todosSonMasGrandes(bin(I,R1,D), X) :- R1 > X, todosSonMasGrandes(I,X), todosSonMasGrandes(D,X).
+
+
+maximo(A,B,M) :- A >= B, M is A.
+maximo(A,B,M) :- A < B, M is B.
+
+
+aBBInsertar(R, nil, bin(nil,R,nil)).
+aBBInsertar(X,bin(I,R,D),A) :- var(A), inorder(bin(I,R,D),L), insertarOrdenado(X,L,L2), arbolConInorder(L2,A).
+aBBInsertar(X,A,bin(I,R,D)) :- var(A), inorder(bin(I,R,D),L), quitar(X,L,L2), arbolConInorder(L2,A).
+
+
+
+insertarOrdenado(E,[],[E]).
+insertarOrdenado(E,[E2|L],[E|[E2|L]]) :- E < E2.
+insertarOrdenado(E,[E2|L],[E2|L2]) :- E > E2, insertarOrdenado(E,L,L2).
+
+quitar(X,[],[]).
+quitar(X,[E|L],L) :- X=E.
+quitar(X,[E|L],[E|L2]) :- X\=E, quitar(X,L,L2).
+
+---------------------TODOS LSO CONJUNTOS DE NATURALES----------------
+natural(cero).
+natural(suc(X)) :- natural(X).
+conjuntoDeNaturales(X) :- not(existeUnNoNatural(X)).
+existeUnNoNatural(X) :- pertenece(E, X), not(natural(E)).
+pertenece(E,X) :- member(E,X).
+
+---------------------GRAFOS------------------------------
+esNodo(G,X) :- append([Nodos],_,G), member(X,Nodos).
+esArista(G,X,Y) :- append(_,[Aristas],G), member([X,Y],Aristas).
+esArista(G,X,Y) :- append(_,[Aristas],G), member([Y,X],Aristas).
+
+caminoSimple(G,Start,End,L) :- buscarCaminosSimples(G,Start,End,L,[Start]).
+
+buscarCaminosSimples(G,Start,End,[End],_) :- esNodo(G,Start), Start = End.
+buscarCaminosSimples(G,Start,End,[Start|L],NodosYaVisitados) :- 
+	esNodo(G,Start), Start \= End,															
+	esArista(G, Start, X), 
+	not(member(X,NodosYaVisitados)),
+	append(NodosYaVisitados,[X],NodosYaVisitados2),																
+	buscarCaminosSimples(G, X, End,L,NodosYaVisitados2).
+
+	
+	----------------ULTIMO DE ARBOLES-------------
+														
+
+desde(X,X).
+desde(X,Y) :- N is X + 1, desde(N,Y).
+
+
+arbol(A) :- desde(0,N), arbolDeNNodos(N,A). 
+
+arbolDeNNodos(0,nil).
+arbolDeNNodos(N,bin(I,R,D)) :- N > 0, N2 is N-1, 
+	sumanN(X,Y,N2), 
+	arbolDeNNodos(X,I), 
+	arbolDeNNodos(Y,D).
+
+sumanN(X,Y,N) :- between(0,N,X), between(0,N,Y), N is X+Y.
+
+
+nodosEn(A,L) :- arbol(A), instanciar(A,L).
+instanciar(nil,L).
+instanciar(bin(I,R,D),L) :- member(R,L), 
+		instanciar(I,L), instanciar(D,L).
+
+
+sinRepeEn(A,L) :-   length(L,LengthL), 
+					between(0,LengthL,N), 
+					arbolDeNNodos(N,A),
+					subconjuntoN(N,L,S),
+					instanciarEnOrden(A,S).
+					
+
+subconjuntoN(0,L,[]).
+subconjuntoN(N,L,[E|L2]) :- N>0, member(E,L), 
+						subtract(L,[E],L3), 
+						N2 is N-1, subconjuntoN(N2,L3,L2).
+
+instanciarEnOrden(nil,[]).
+instanciarEnOrden(bin(I,R,D),[R|L]) :- 
+									cantidadNodos(I,CI), 
+									cantidadNodos(D,CD),
+									append(P,S,L),
+									length(P,CI),
+									length(S,CD),
+									instanciarEnOrden(I,P),
+									instanciarEnOrden(D,S).
+									
+cantidadNodos(nil,0).
+cantidadNodos(bin(I,R,D),N) :- cantidadNodos(I,CI), 
+						cantidadNodos(D,CD), N is 1 + CI + CD.
+
+
+-----------------------------------------------------COPRIMOS------------
+coprimos(X,Y) :- armarPares(X,Y), gcd(X,Y) =:= 1.
+armarPares(X,Y) :- desde(1,S), between(1,S,X), Y is S - X + 1.
+
+------------------------------------CUADRADO LATINO----------------------
+desde(X,X).
+desde(X,Y) :- var(Y), N is X+1, desde(N,Y).
+desde(X,Y) :- nonvar(Y), Y>X.
+
+
+
+cuadradoSemiLatino(N,X) :- desde(0,K), 
+				cuadradoSemiLatinoDeDimensionNMYLasFilasSumanK(N,N,K,X).
+
+
+cuadradoSemiLatinoDeDimensionNMYLasFilasSumanK(N,0,K,[]).
+cuadradoSemiLatinoDeDimensionNMYLasFilasSumanK(N,M,K,[X|Xs]) :- 
+		M\=0, listaDeTamanoNQueSumaK(N,K,X), M2 is M - 1, 
+		cuadradoSemiLatinoDeDimensionNMYLasFilasSumanK(N,M2,K,Xs).
+															
+					
+listaDeTamanoNQueSumaK(0,_,[]).
+listaDeTamanoNQueSumaK(N,K,[X|Xs]) :- N\=0, 
+		between(0,K,X), K2 is K - X, N2 is N-1, 
+		listaDeTamanoNQueSumaK(N2,K2,Xs), sumatoria(Xs, K2).
+
+
+sumatoria([],0).
+sumatoria([E|L],S) :- sumatoria(L,S2), S is E + S2.
+
+--------------TRIANGULOS---------------------------------
+esTriangulo(tri(A,B,C)) :- esCompatible(A,B,C), esCompatible(B,C,A), esCompatible(C,B,A).
+
+esCompatible(A,B,C) :- A>0, B>0, C>0, 
+	Suma is B + C, A < Suma, 
+	Dif is abs(B - C), A > Dif. 
+
+/*
+ojo esto fallaba cuando hacia perimietro(T,10). porque unifica con, y despues al no estar instanciadas ni A, ni B, ni C falla.
+perimietro(tri(A,B,C),N) :- esTriangulo(tri(A,B,C)), N is A + B + C.
+*/
+
+perimietro(T,N) :- nonvar(T), esTriangulo(T), triangulo(A,B,C,T), N is A + B + C.
+perimietro(T,N) :- var(T), nonvar(N), sumanN(A,B,C,N), 
+			esTriangulo(tri(A,B,C)), triangulo(A,B,C,T).
+perimietro(T,N) :- var(T), var(N), 
+			desde(3,N), sumanN(A,B,C,N), 
+			esTriangulo(tri(A,B,C)), triangulo(A,B,C,T).
+
+triangulo(A,B,C,tri(A,B,C)).
+
+
+desde(X,X).
+desde(X,Y) :- var(Y), N is X+1, desde(N,Y).
+
+
+sumanN(A,B,C,N) :- between(0,N,A), 
+					between(0,N,B), 
+					between(0,N,C), N is A + B + C.
+
+
+triangulo(T) :- desde(3,N), sumanN(A,B,C,N), 
+			triangulo(A,B,C,T), esTriangulo(T).
+
+
+---------------------CORTE MAS PAREJO--------------------------------------------
+corteMasParejo(L,L1,L2) :- append(L1,L2,L), 
+		sumatoria(L1, S1), 
+		sumatoria(L2, S2), 
+		Dif is abs(S1 - S2), 
+		not(existeOtroCorteMasParejo(L,L1,L2,Dif)).
+
+existeOtroCorteMasParejo(L,L1,L2,Dif) :- append(L3,L4,L), 
+		sumatoria(L3, S3), 
+		sumatoria(L4, S4), 
+		Dif2 is abs(S3 - S4), Dif2 < Dif.
+
+sumatoria([],0).
+sumatoria([E|L], N) :- sumatoria(L, N2), N is E + N2.
+
+
+---------------------------------Diferencia SImetrica-------------------------------
+diferenciaSimetrica(L1,L2,L3) :- union(L1,L2,U), 
+		intersection(L1,L2,I), subtract(U,I,L3).
+
+
+------------------------------MAX P -------------------------
+maxP(X) :- p(X), not(hayOtroMasGrande(X,Y)).
+hayOtroMasGrande(X,Y) :- p(X), p(Y), Y > X.
+
+p(1).
+p(2).
+p(4).
+
+---------------------------TODAS LAS LISTAS POSITIVAS----------------
+desde(X,X).
+desde(X,Y) :- N is X+1, desde(N,Y).
+
+listaPositiva(L) :- desde(1,X), todasLasListasQueSumanN(X,L).
+
+
+todasLasListasQueSumanN(0,[]).
+todasLasListasQueSumanN(N,[E|L]) :- between(1,N,E), 
+	N2 is N-E, todasLasListasQueSumanN(N2,L).
+
+concatenar([],L,L).
+concatenar([X|Xs],Z,[X|L]) :- concatenar(Xs,Z,L).
+
+ultimo(L,U) :- concatenar(M,[U],L).
+
+reverso([],[]).
+reverso([E|L],R) :- reverso(L,R2), concatenar(R2,[E],R).
+
+sublista([],L).
+sublista(S,L) :- concatenar(P,_,L), 
+	concatenar(_,Sufijo,L), 
+	concatenar(P,S,L1), concatenar(L1,Sufijo, L), S\=[].
+
+-------------------------GABI: SUBCONJUNTO DE PARES-------------------------------
+paresConX(_,[],[]).
+paresConX(X,[Y|YS],[(X,Y)|PS]) :- paresConX(X,YS,PS).
+paresConX(X,[_|YS],PS) :- paresConX(X,YS,PS).
+
+--------------------------EJERICIO PARCIAL RELACIONES HECHO POR MI CON PERMUTACIONES----------------
+
+
+relacion(A,B,[]).
+relacion(A,B,L) :-  subconjuntoDe(A,S1), 
+		subconjuntoDe(B,S2), armarPares(S1,S2,L).
+
+
+armarPares([],_,[]).
+armarPares([E|L1],B,P) :- eConTodosLosDeB(E,B,EconB), armarPares(L1,B,P2), append(EconB,P2,P).
+
+eConTodosLosDeB(E,[],[]).
+eConTodosLosDeB(E,[E2|L],[(E,E2)|L2]) :- eConTodosLosDeB(E,L,L2). 
+
+
+
+/*
+este genera las permutaciones de los subconjuntos
+*/
+subconjuntoDe(L,S) :- length(L,LengthL), 
+		between(1,LengthL, LengthS), 
+		subconjuntoDeTamanoN(L,LengthS,S).
+
+
+subconjuntoDeTamanoN(L,1,[E]) :- member(E,L). 
+subconjuntoDeTamanoN(L,N,[E|S]) :- N \= 1, 
+	N2 is N-1, select(E,L,L2), 
+	subconjuntoDeTamanoN(L2,N2,S).
+
+----------------Solucion GABY RELACIONES----------
+relacion(A,B,R) :- productoCartesiano(A,B,P), subconjuntoDe(P,R).
+
+productoCartesiano([],_,[]).
+productoCartesiano([X|XS],B,P) :- eConTodosLosDeB(X,B,P1), 
+	productoCartesiano(XS,B,P2), append(P1,P2,P).
+
+%subconjuntoDe(+L,-S)
+subconjuntoDe(_,[]).
+subconjuntoDe(L,[X|XS]) :- append(_,[X|Resto],L), subconjuntoDe(Resto,XS).
+
+------------------CONJUNTO VACIO EN Js-----------
+vacio = 
+{
+	hayElementos : false,
+	sacar : function(x){return vacio},
+	pertenece : function(x){return false},
+	agregar : function(x){
+		var result = Object.create(this);
+		result.hayElementos = true;
+		result.pertenece = function(y){
+			if(x==y){
+				return true;				
+			}
+			else{
+				return this.__proto__.pertenece(y);			
+			}
+		}
+		result.sacar = function(z){
+			if(x==z){
+				return this.__proto__;
+			}
+			else{
+				return this.__proto__.sacar(z).agregar(x);
+			}
+		}
+		return result;
+	}
+}
+
+-------------EJERCICIOS CALCULO DE OBJETOS-----
+origen = 
+[	x = 0,
+	y = 0,
+	mv= S(z)lambda(dx)lambda(dy)(x.z:= z.x + dx).y := z.y+ dy	
+]
+
+Punto = 
+[
+	new = S(z)[
+				x = S(s)z.x(s),
+				y = S(s)z.y(s),
+				mv = S(s)z.mv(s)
+			  ]
+				
+	x = lambda(s)0,
+	y = lambda(s)0,
+	mv = lambda(s)lambda(dx)lambda(dy)(s.x := s.x + dy).y := s.y + dy			
+]
+
+
+Punto -> Punto  [x = S(s)Punto.x(s), y = S(s)Punto.y(s), mv = S(s)Punto.mv(s)]{Punto/z} ->  o
+--------------------------------------------------------------------------------------------------sel
+				Punto.new -> [x = S(s)Punto.x(s), y = S(s)Punto.y(s), mv = S(s)Punto.mv(s)]
+				
+o = [x = S(s)Punto.x(s), y = S(s)Punto.y(s), mv = S(s)Punto.mv(s)]
+
+PuntoColoreado =
+[
+	new = S(z)[
+				x = S(s)z.x(s),
+				y = S(s)z.y(s),
+				mv = S(s)z.mv(s),
+				color = S(s)z.color(s)				
+			  ]
+	x = Punto.x,
+	y = Punto.y,
+	mv = Punto.mv,
+	color = lambda(s)"rojo"
+
+	newConColor = S(z)lambda(unColor)(c.new).color := unColor 
+]
+
+-------------VACIO EN CALCULO DE OBJETOS------
+
+vacio = 
+[
+	hayElementos = false,
+	sacar = vacio,
+	pertenece = false,
+	agregar = S(o)lambda(x) ((s.hayElementos := true).pertenece := (lambda(y) (x == y) if 
+							true 
+							o.pertenece(y)))
+									.sacar := (lambda(z) (z==x) if 
+										o 
+										o.sacar(z).agregar(x))
+]
+
+Version RODRIGO
+
+vacio = 
+[
+hayElementos = false,
+sacar = vacio,
+pertenece = false,
+agregar = 
+		S(o)lambda(x) (o.pertenece x).if 
+			o 
+			((o.hayElementos := true).pertenece := (lambda(y) (x == y).if true o.pertenece(y)))
+			.sacar := (lambda(z) (z==x).if o o.sacar(z).agregar(x))
+
+
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+											
