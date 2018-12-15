@@ -1,0 +1,17 @@
+Ejercicio 17
+Exhibir un conjunto de clausulas insatisfactible que no pueda refutarse utilizando unicamente la regla de
+resolucion binaria.
+
+{P(x),P(y)},{not(P(v)),not(P(w))}
+
+
+resolvente posibles:
+{P(y),not(P(w))
+{P(x),not(P(w))
+{P(y),not(P(v)}
+{P(y),not(P(w)}
+
+
+si sigo con resolucion binaria a partir de ahroa cualqueir resolvente es mas grande que las clasulas anteriores.
+
+

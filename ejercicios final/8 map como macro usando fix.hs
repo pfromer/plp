@@ -4,9 +4,6 @@ myIterate f a = fix (\x -> a:(map f x))
 fix::(a->a)->a
 fix = (\f->f (fix f))
 
-f::(Int->[Int])->Int->[Int]
-f a b = b:(a (-b))
-
 {-|
 
 creo que la razon por la cual esto funciona en haskell y no en lambda calculo es porque en haskell 

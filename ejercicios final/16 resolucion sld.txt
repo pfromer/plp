@@ -3,15 +3,15 @@ a) Cual es la relacion entre el arbol de resolucion y el arbol de busqueda de Pr
 
 Resoluci´on SLD en Prolog
 I Prolog utiliza resoluci´on SLD con las siguientes restricciones
-I Regla de b´usqueda: se seleccionan las cl´ausulas de programa
+I Regla de b´usqueda: se seleccionan las clausulas de programa
 de arriba hacia abajo, en el orden en que fueron introducidas
-I Regla de selecci´on: seleccionar el ´atomo de m´as a la izquierda
+I Regla de selecci´on: seleccionar el atomo de mas a la izquierda
 I La suma de regla de b´usqueda y regla de selecci´on se llama
 estrategia
-I Cada estrategia determina un ´arbol de b´usqueda o ´arbol SLD
+I Cada estrategia determina un arbol de busqueda o ´arbol SLD
 
-B´usqueda de refutaciones SLD en Prolog
-I Recorre el ´arbol SLD en profundidad (“depth-first search”)
+Busqueda de refutaciones SLD en Prolog
+I Recorre el arbol SLD en profundidad (“depth-first search”)
 I La ventaja del recorrido en profundidad es que puede ser
 implementado de manera muy eficiente
 I Se usa una pila para representar los atomos del goal
@@ -25,13 +25,145 @@ I Desventaja: ¡puede que no encuentre una refutaci´on SLD a´un
 si existe!
 
 
+ejemplo de como va variando la pila para ejercicio de la guia:
+
+1 vecino(X, Y, [W|Ls]) :- vecino(X, Y, Ls).
+2 vecino(X, Y, [X|[Y|Ls]]).
 
 
-b) >Por que al utilizar resolucion general el espacio de busqueda crece en cada paso, y con resolucion SLD esto
-no sucede?
+3 vecino(1,V,[4,1,2,1,3]).
+
+
+p1
+vecino(1,V,[1,2,1,3]). (4: de 3 y 1)
+
+p2
+vecino(1,V,[2,1,3]). (5: de 4 y 1)
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+
+p2
+vecino(1,V,[1,3]). (6: de 5 y 1)
+vecino(1,V,[2,1,3]). (5: de 4 y 1)
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+
+p4
+vecino(1,V,[3]). (7: de 6 y 1)
+vecino(1,V,[1,3]). (6: de 5 y 1)
+vecino(1,V,[2,1,3]). (5: de 4 y 1)
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+
+p5
+vecino(1,V,[]). (8: de 6 y 1)
+vecino(1,V,[3]). (7: de 6 y 1)
+vecino(1,V,[1,3]). (6: de 5 y 1)
+vecino(1,V,[2,1,3]). (5: de 4 y 1)
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+
+p6
+pop de clausula 8 porque no unifica con ninguna
+vecino(1,V,[3]). (7: de 6 y 1)
+vecino(1,V,[1,3]). (6: de 5 y 1)
+vecino(1,V,[2,1,3]). (5: de 4 y 1)
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+
+p7
+pop de clausula 7 porque no unifica
+vecino(1,V,[1,3]). (6: de 5 y 1)
+vecino(1,V,[2,1,3]). (5: de 4 y 1)
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+p8
+{} clausula vacia de unificar 6 con 2
+vecino(1,V,[1,3]). (6: de 5 y 1)
+vecino(1,V,[2,1,3]). (5: de 4 y 1)
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+
+p10
+pop de clausula vacia
+vecino(1,V,[1,3]). (6: de 5 y 1)
+vecino(1,V,[2,1,3]). (5: de 4 y 1)
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+p10
+pop de clausual 6 porque no unfica con ninguna mas
+vecino(1,V,[2,1,3]). (5: de 4 y 1)
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+p11
+pop de clausua 5 porque no unfica con ninguna mas
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+p10
+{} clausua vacia de unificar 4 con 2
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+p11
+pop de clasua vacia
+vecino(1,V,[1,2,1,3]).  (4: de 3 y 1)
+
+p12
+pop de clausua 4 porque no unifica con nada mas
+
+
+
+b) >Por que al utilizar resolucion general el espacio de busqueda crece en cada paso, y con resolucion SLD esto no sucede?
+Porque en cada paso podemos elegir entre cualquier par de clausulas que hayan sido agregadas al conjutno en los pasos anteriores.
+En cambio, en resolucion SLD la resolucion es lineal, lo cual implica que en cada paso uso la clausula resovlente del paso anterior mas alguna de las anteriores.
+
+I Si bien el m´etodo de resoluci´on general es completo, hallar
+refutaciones es un proceso muy caro en el caso general
+I El espacio de b´usqueda producido puede ser enorme
+I Hay un alto grado de no-determinismo
+I ¿Qu´e cl´ausulas elegimos? Regla de b´usqueda
+I ¿Qu´e literales eliminamos? Regla de selecci´on
+I Se precisan restricciones (regla de b´usqueda y selecci´on) para
+reducir el espacio de b´usqueda (utilidad pr´actica)
+I Es deseable que dichas restricciones no renuncien a la
+completitud del m´etodo
+
+
+resolucion lineal:
+
+En general, reduce el espacio de b´usqueda considerablemente
+I Preserva completitud
+I Sin embargo sigue siendo altamente no-determin´ıstico
+I El criterio de b´usqueda deja espacio para refinamientos
+I No se especific´o ning´un criterio de selecci´on
+
+
+Correcci´on y completitud SLD (es lineal mas clausulas de horn)
+
+Correcci´on
+Si un conjunto de cl´ausulas de Horn tiene una refutaci´on SLD,
+entonces es insatisfactible
+Completitud
+Dado un conjunto de cl´ausulas de Horn P ∪ {G} tal como se
+describi´o, si P ∪ {G} es insatisfactible, existe una refutaci´on SLD
+cuya primera cl´ausula es G
 
 
 
 
 c) >Que hay que vericar antes de llamar al algoritmo mgu para unicar dos clausulas?
-d) Calcular el resolvente entre las siguientes clausulas: fP(x; y)g; f:P(y; f(y))g.
+Que entre las diferentes clausulas no haya nombres de variables en comun. en caso de haberlas hay que renombrar
+
+
+d) Calcular el resolvente entre las siguientes clausulas: {P(x, y)}, {notP(y,f(y))}
+
+primero renombro:
+{P(v, w)}, {notP(y,f(y))}
+
+ahora unifico v->y, w->f(y)
+
+El resolvente es la clausula vacia.
+
+
+
+
+

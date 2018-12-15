@@ -16,6 +16,41 @@ Punto =
 	y = lambda(s)0,
 	mv = lambda(s)lambda(dx)lambda(dy)(s.x := s.x + dy).y := s.y + dy			
 ]
+-------------------------
+vacio = 
+[
+	hayElementos = S(x)false,
+	sacar = S(x)vacio,
+	pertenece = S(x)lambda(y)false,
+	agregar = S(o)lambda(x) ((o.hayElementos := true).pertenece := (lambda(y) (x == y) if true o.pertenece(y)))
+							.sacar := (lambda(z) (z==x) if o o.sacar(z).agregar(x))
+]
+
+Conjunto = 
+[
+
+	new = S(z)[
+				hayElementos = S(s)z.hayElementos(s),
+				sacar = S(s)z.sacar(s),
+				pertenece = S(s)z.pertenece(s),
+				agregar = S(s)z.agregar(s)
+			]
+			
+	hayElementos = lambda(s)lambda(x)false,
+	sacar = lambda(s)lambda(x)vacio,
+	pertenece = lambda(s)lambda(x)false,
+	agregar = lambda(o)lambda(x) ((o.hayElementos := true).pertenece := (lambda(y) (x == y) if true o.pertenece(y)))
+							.sacar := (lambda(z) (z==x) if o o.sacar(z).agregar(x))		
+
+
+]
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
 
 
 Punto -> Punto  [x = S(s)Punto.x(s), y = S(s)Punto.y(s), mv = S(s)Punto.mv(s)]{Punto/z} ->  o

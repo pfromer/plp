@@ -21,7 +21,7 @@ vacio =
 	sacar = vacio,
 	pertenece = false,
 	agregar = S(o)lambda(x) ((s.hayElementos := true).pertenece := (lambda(y) (x == y) if true o.pertenece(y)))
-							.sacar := (lambda(z) (z==x) o o.sacar(z).agregar(x))
+							.sacar := (lambda(z) (z==x) if o o.sacar(z).agregar(x))
 
 
 ]
