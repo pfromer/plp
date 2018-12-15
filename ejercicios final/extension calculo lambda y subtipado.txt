@@ -1,0 +1,4 @@
+si se extiende calculo lambda con dos estructuras distintas de datos distintas a y b 
+para ver si a puede ser subtipo de b tenemos que ver que a soporte todas las operaciones que soporta b
+con los mismos tipos de parametros y con mismos tipos para los resultados de esas operaciones.
+

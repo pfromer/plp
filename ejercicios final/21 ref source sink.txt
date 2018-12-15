@@ -1,0 +1,41 @@
+Ejercicio 21
+Sea T un tipo. Decidir que pares entre los tipos siguientes satisfacen la relacion <: de acuerdo con las reglas
+dadas:
+1. Ref T,
+2. Ref Ref T,
+3. Sink T,
+4. Source T,
+5. Ref Sink T,
+6. Source Ref T,
+7. Source Source T,
+
+
+1<:3
+1<:4
+2<:6
+2<:7
+6<:7
+
+Ref T<:Sink T
+Ref T<:Source T
+Ref Ref T<:Source Ref T
+Ref Ref T<:Source Source T
+Source Ref T<:Source Source T
+
+
+
+
+
+Ref τ <: Source τ
+Ref τ <: Sink τ
+
+
+Ref Sink T <: Source Sink T 
+
+Ref Ref T <: Source Ref T <: Source Sink T
+Ref Ref T <: Source Ref T <: Source Source T
+
+
+p<:q
+------
+sink q<:sink p

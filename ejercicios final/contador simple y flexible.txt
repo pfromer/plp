@@ -1,0 +1,27 @@
+ContadorSimple =
+[
+	new = S(z)[
+				val = S(s)z.val(s),
+				avanzar = S(s)z.avanzar(s),
+				avanzarSi = S(s)z.avanzarSi(s)
+			]
+			
+	val = lambda(s)1,
+	avanzar = lambda(s)s.val := s.val + 1,
+	avanzarSi = lambda(s)lambda(x)if x s.avanzar s
+]
+
+ContadorFlexible = 
+[
+	new = S(z)[
+				val = S(s)z.val(s),
+				avanzar = S(s)z.avanzar(s),
+				avanzarSi = S(s)z.avanzarSi(s),
+				cambiarAvance = S(s)z.cambiarAvance(s)
+			]
+
+	val = lambda(s)ContadorSimple.val(s),
+	avanzar = lambda(s)s.ContadorSimple.avanzar(s),
+	avanzarSi = lambda(s)ContadorSimple.avanzarSi(s),
+	cambiarAvance = lambda(s)lambda(f)s.avanzar := (lambda(s)s.val := f(s.val))
+]

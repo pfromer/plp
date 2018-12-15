@@ -1,0 +1,44 @@
+Lema (Unicidad de formas normales)
+Si M ->> U  y M ->> V con U, V formas normales, entonces U = V
+
+Lema (Terminaci´on)
+Para todo M existe una forma normal N tal que M ->> N
+
+Ejercicio 22 (Absorcion)
+Probar que si M ->> U y M ->> V con U una forma normal, entonces V ->> U.
+
+
+Separo en dos casos.
+Si V es forma normal, entonces por el lema de unicidad de formas nomrales tiene que ser V=U, con lo cual V->>U (en 0 pasos).
+
+Si V no es forma normal, entonces por el lema de la Terminacion existe un U' tal que U' es forma normal y
+V->>U'.
+Por lo tanto como M->>V y V->>U' se tiene que M->>U'.
+
+Supongamos U' es distinto de U.
+Se tiene entonces que M->>U y M->>U', con los dos formas normales. Pero esto es absurdo pues por el lema de la unicidad
+de las formas normales tiene que ser U = U'. Por lo tanto no puede ser que sean distintos, por lo tanto V->>U.
+
+
+
+
+
+
+
+
+
+
+
+
+Primero veamos que M1->>Mn significa que existen M2, M2, .. Mn-1 tales que
+M1 -> M1-> M2-> ... ->Mn 
+
+
+Primero veamos que si Si M ->> M' y M ->> M'', entonces M' = M'' (con M' y M'' formas normales)
+Por absurdp
+si fuera que M' != M'', entonces tiene que haber alguna derivacion intermedia en la sucecion de derivaciones de un paso
+entre M y M' tal que  Mk->Mk+1 tal que Mk pertenece a la sucecion de derivaciones en un paso 
+entre M y M'' pero en esa otra sucecion M->Mk+1', con Mk+1' diferente a Mk+1.
+Es decir tiene que haber un termino en el que las suceciones se diferencian, sino no podria pasar que M' es distinto de M''.
+Pero esto contradice el lema del determinismo de juicio de evaluacion en un paso.
+por lo tanto si Si M ->> M' y M ->> M'', entonces M' = M''.

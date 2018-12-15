@@ -1,0 +1,17 @@
+not2(G) :- call(G), fail, !.
+not2(G).
+
+
+el problema de esta implemenetacion es que la primer linea siempre falla, tanto si falla por
+el call(G), y si no por el fail. el cut nunca llega a ejecutarse entonces siempre se ejecuta la
+segunda linea que no falla.
+
+entonces not2(G) siempre devuelve true,
+
+not(G) :- call(G), !, fail.
+not(G).
+
+en cambio esta implemenetacion, si falla call(G) entonces va directo a la segunda linea que siempre es exitosa y
+devuelve true.
+si no falla call(G), nos quedamos con un solo resultado y podamos con el backtraing la rama que iba a not(G), con
+lo cual devuelve false ya que no llega a unificar con la segunda linea.
